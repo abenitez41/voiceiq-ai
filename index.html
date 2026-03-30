@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>VoiceIQ AI - AI Agents That Make Outbound Sales Calls & Book Appointments</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root { --navy: #0a0f1e; --navy-mid: #111827; --gold: #c9a84c; --gold-light: #e2c97e; --gold-dim: rgba(201,168,76,0.15); --white: #ffffff; --off-white: #f5f5f7; --gray-1: #e8e8ed; --gray-2: #a1a1aa; --text: #1d1d1f; --text-sub: #6e6e73; --radius: 18px; }
+html { scroll-behavior: smooth; }
+body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Arial, sans-serif; background: var(--white); color: var(--text); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 48px; height: 64px; background: rgba(255,255,255,0.82); backdrop-filter: saturate(180%) blur(20px); border-bottom: 0.5px solid rgba(0,0,0,0.08); }
+.nav-logo { font-size: 20px; font-weight: 700; color: var(--navy); }
+.nav-logo span { color: var(--gold); }
+.nav-links { display: flex; gap: 32px; list-style: none; }
+.nav-links a { font-size: 14px; color: var(--text-sub); text-decoration: none; transition: color .2s; }
+.nav-cta { background: var(--navy); color: var(--white); padding: 9px 22px; border-radius: 980px; font-size: 14px; font-weight: 500; text-decoration: none; }
+.hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 120px 24px 80px; background: linear-gradient(180deg, #080d1c 0%, #0d1830 55%, #172038 100%); position: relative; overflow: hidden; }
+.hero-rings { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none; }
+.ring { position: absolute; border-radius: 50%; border: 1px solid rgba(201,168,76,0.08); transform: translate(-50%, -50%); animation: expand 4s ease-out infinite; }
+.ring:nth-child(1) { width: 400px; height: 400px; animation-delay: 0s; }
+.ring:nth-child(2) { width: 650px; height: 650px; animation-delay: 1.3s; }
+.ring:nth-child(3) { width: 900px; height: 900px; animation-delay: 2.6s; }
+@keyframes expand { 0% { opacity: 0.6; transform: translate(-50%,-50%) scale(0.8); } 100% { opacity: 0; transform: translate(-50%,-50%) scale(1); } }
+@keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.2; } }
+.hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; background: rgba(201,168,76,0.1); border: 0.5px solid rgba(201,168,76,0.25); color: var(--gold-light); padding: 6px 16px; border-radius: 980px; font-size: 12px; font-weight: 500; letter-spacing: 0.8px; text-transform: uppercase; margin-bottom: 32px; position: relative; z-index: 1; }
+.hero-eyebrow::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--gold); display: block; animation: pulse 2s infinite; }
+.hero h1 { font-size: clamp(44px,7vw,86px); font-weight: 700; letter-spacing: -2.5px; line-height: 1.04; color: var(--white); max-width: 900px; margin-bottom: 28px; position: relative; z-index: 1; }
+.hero h1 em { font-style: normal; background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero-sub { font-size: clamp(17px,2vw,20px); color: rgba(255,255,255,0.5); max-width: 580px; line-height: 1.6; margin-bottom: 48px; position: relative; z-index: 1; }
+.hero-actions { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; position: relative; z-index: 1; }
+.btn-primary { background: var(--gold); color: var(--navy); padding: 16px 36px; border-radius: 980px; font-size: 16px; font-weight: 600; text-decoration: none; transition: all .2s; }
+.btn-ghost { background: rgba(255,255,255,0.07); border: 0.5px solid rgba(255,255,255,0.18); color: var(--white); padding: 16px 36px; border-radius: 980px; font-size: 16px; font-weight: 500; text-decoration: none; }
+.hero-stats { display: flex; margin-top: 80px; border: 0.5px solid rgba(255,255,255,0.09); border-radius: var(--radius); background: rgba(255,255,255,0.04); backdrop-filter: blur(12px); position: relative; z-index: 1; }
+.hero-stat { padding: 24px 44px; text-align: center; border-right: 0.5px solid rgba(255,255,255,0.09); }
+.hero-stat:last-child { border-right: none; }
+.hero-stat-num { font-size: 32px; font-weight: 700; color: var(--white); letter-spacing: -1px; line-height: 1; margin-bottom: 6px; }
+.hero-stat-num span { color: var(--gold); }
+.hero-stat-label { font-size: 11px; color: rgba(255,255,255,0.35); text-transform: uppercase; letter-spacing: 0.8px; }
+section { padding: 120px 24px; }
+.container { max-width: 1080px; margin: 0 auto; }
+.section-eyebrow { font-size: 12px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+.section-title { font-size: clamp(34px,4.5vw,54px); font-weight: 700; letter-spacing: -1.8px; line-height: 1.08; color: var(--navy); margin-bottom: 20px; }
+.section-sub { font-size: 18px; color: var(--text-sub); line-height: 1.6; max-width: 560px; }
+.problem { background: var(--navy); padding: 80px 24px; }
+.problem .section-title { color: var(--white); }
+.problem .section-sub { color: rgba(255,255,255,0.45); }
+.problem-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: rgba(255,255,255,0.06); border-radius: var(--radius); overflow: hidden; margin-top: 56px; }
+.problem-card { background: rgba(255,255,255,0.03); padding: 36px 32px; }
+.problem-stat { font-size: 40px; font-weight: 700; color: var(--gold); letter-spacing: -1.5px; line-height: 1; margin-bottom: 10px; }
+.problem-card h3 { font-size: 15px; font-weight: 600; color: var(--white); margin-bottom: 8px; }
+.problem-card p { font-size: 13px; color: rgba(255,255,255,0.4); line-height: 1.6; }
+.how { background: var(--off-white); }
+.how .container { text-align: center; }
+.how .section-sub { margin: 0 auto 72px; }
+.flow { display: grid; grid-template-columns: repeat(6,1fr); }
+.flow-step { display: flex; flex-direction: column; align-items: center; padding: 0 8px; position: relative; }
+.flow-step:not(:last-child)::after { content: '→'; position: absolute; right: -12px; top: 28px; color: var(--gold); font-size: 18px; }
+.flow-num { width: 56px; height: 56px; border-radius: 50%; background: var(--navy); color: var(--gold); font-size: 18px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; }
+.flow-step h3 { font-size: 13px; font-weight: 600; color: var(--navy); text-align: center; line-height: 1.4; margin-bottom: 8px; }
+.flow-step p { font-size: 12px; color: var(--text-sub); line-height: 1.5; text-align: center; }
+.compare { background: var(--white); }
+.compare .container { text-align: center; }
+.compare .section-sub { margin: 0 auto 64px; }
+.compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; text-align: left; }
+.compare-card { border-radius: var(--radius); padding: 40px 36px; border: 0.5px solid var(--gray-1); }
+.compare-card.bad { background: var(--off-white); }
+.compare-card.good { background: var(--navy); border-color: var(--navy); }
+.compare-label { font-size: 11px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 24px; }
+.bad .compare-label { color: var(--gray-2); }
+.good .compare-label { color: var(--gold); }
+.compare-title { font-size: 24px; font-weight: 700; margin-bottom: 32px; line-height: 1.2; }
+.bad .compare-title { color: var(--navy); }
+.good .compare-title { color: var(--white); }
+.compare-rows { display: flex; flex-direction: column; gap: 16px; }
+.compare-row { display: flex; align-items: flex-start; gap: 12px; }
+.compare-icon { width: 20px; height: 20px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; margin-top: 1px; }
+.bad .compare-icon { background: rgba(0,0,0,0.08); color: var(--gray-2); }
+.good .compare-icon { background: rgba(201,168,76,0.2); color: var(--gold); }
+.compare-row-text { font-size: 14px; line-height: 1.5; }
+.bad .compare-row-text { color: var(--text-sub); }
+.good .compare-row-text { color: rgba(255,255,255,0.65); }
+.compare-row-text strong { display: block; font-weight: 600; margin-bottom: 2px; }
+.bad .compare-row-text strong { color: var(--navy); }
+.good .compare-row-text strong { color: var(--white); }
+.verticals { background: var(--off-white); }
+.verticals-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(190px,1fr)); gap: 16px; margin-top: 64px; }
+.vertical-card { border: 0.5px solid var(--gray-1); border-radius: var(--radius); padding: 32px 24px; background: var(--white); transition: all .25s; position: relative; overflow: hidden; }
+.vertical-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg,var(--gold),var(--gold-light)); transform: scaleX(0); transform-origin: left; transition: transform .3s; }
+.vertical-card:hover { transform: translateY(-4px); box-shadow: 0 20px 60px rgba(0,0,0,0.07); }
+.vertical-card:hover::after { transform: scaleX(1); }
+.vertical-emoji { font-size: 28px; margin-bottom: 16px; display: block; }
+.vertical-card h3 { font-size: 15px; font-weight: 600; color: var(--navy); margin-bottom: 8px; }
+.vertical-card p { font-size: 12px; color: var(--text-sub); line-height: 1.55; margin-bottom: 14px; }
+.vertical-roi { display: inline-block; background: var(--gold-dim); color: #7a5c10; font-size: 11px; font-weight: 600; padding: 3px 9px; border-radius: 980px; }
+.pricing { background: var(--white); }
+.pricing .container { text-align: center; }
+.pricing .section-sub { margin: 0 auto 64px; }
+.pricing-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; text-align: left; }
+.pricing-card { background: var(--off-white); border-radius: var(--radius); border: 0.5px solid var(--gray-1); padding: 36px 24px; position: relative; transition: transform .2s; }
+.pricing-card.featured { background: var(--navy); border-color: var(--navy); }
+.pricing-badge { position: absolute; top: -13px; left: 50%; transform: translateX(-50%); background: var(--gold); color: var(--navy); font-size: 11px; font-weight: 700; padding: 4px 14px; border-radius: 980px; white-space: nowrap; text-transform: uppercase; }
+.pricing-tier { font-size: 11px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+.featured .pricing-tier { color: var(--gold-light); }
+.pricing-price { font-size: 40px; font-weight: 700; color: var(--navy); line-height: 1; margin-bottom: 4px; }
+.featured .pricing-price { color: var(--white); }
+.pricing-price sup { font-size: 18px; vertical-align: super; font-weight: 500; }
+.pricing-cadence { font-size: 12px; color: var(--text-sub); margin-bottom: 6px; }
+.featured .pricing-cadence { color: rgba(255,255,255,0.45); }
+.pricing-volume { font-size: 13px; font-weight: 600; color: var(--gold); margin-bottom: 8px; }
+.pricing-setup { font-size: 11px; color: var(--text-sub); margin-bottom: 24px; padding-bottom: 20px; border-bottom: 0.5px solid var(--gray-1); }
+.featured .pricing-setup { color: rgba(255,255,255,0.3); border-bottom-color: rgba(255,255,255,0.1); }
+.pricing-features { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+.pricing-features li { font-size: 12.5px; color: var(--text-sub); display: flex; align-items: flex-start; gap: 8px; line-height: 1.4; }
+.featured .pricing-features li { color: rgba(255,255,255,0.6); }
+.pricing-features li::before { content: '✓'; color: var(--gold); font-weight: 700; font-size: 11px; flex-shrink: 0; margin-top: 1px; }
+.pricing-btn { display: block; text-align: center; padding: 12px; border-radius: 980px; font-size: 13px; font-weight: 600; text-decoration: none; transition: all .2s; }
+.pricing-btn-outline { border: 1.5px solid var(--gray-1); color: var(--navy); }
+.pricing-btn-solid { background: var(--gold); color: var(--navy); }
+.social { background: var(--off-white); }
+.social .container { text-align: center; }
+.testimonials { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; margin-top: 64px; text-align: left; }
+.testimonial { background: var(--white); border-radius: var(--radius); padding: 36px 32px; border: 0.5px solid var(--gray-1); }
+.testimonial-stars { color: var(--gold); font-size: 13px; margin-bottom: 14px; letter-spacing: 2px; }
+.testimonial p { font-size: 15px; line-height: 1.65; color: var(--text); margin-bottom: 24px; font-style: italic; }
+.testimonial-author { display: flex; align-items: center; gap: 12px; }
+.testimonial-avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--navy); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: var(--gold); flex-shrink: 0; }
+.testimonial-name { font-size: 14px; font-weight: 600; color: var(--navy); }
+.testimonial-title { font-size: 12px; color: var(--text-sub); }
+.cta-banner { background: var(--navy); padding: 100px 24px; text-align: center; }
+.cta-banner h2 { font-size: clamp(34px,5vw,58px); font-weight: 700; letter-spacing: -2px; color: var(--white); margin-bottom: 20px; line-height: 1.08; }
+.cta-banner h2 em { font-style: normal; color: var(--gold); }
+.cta-banner p { font-size: 18px; color: rgba(255,255,255,0.45); margin-bottom: 44px; }
+.cta-form { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.cta-input { padding: 15px 24px; border-radius: 980px; border: 0.5px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.06); color: var(--white); font-size: 15px; width: 300px; outline: none; font-family: inherit; }
+.cta-submit { padding: 15px 32px; border-radius: 980px; background: var(--gold); color: var(--navy); font-size: 15px; font-weight: 600; border: none; cursor: pointer; font-family: inherit; }
+footer { background: var(--navy-mid); padding: 60px 24px 40px; }
+.footer-inner { max-width: 1080px; margin: 0 auto; display: flex; justify-content: space-between; align-items: flex-start; gap: 48px; flex-wrap: wrap; }
+.footer-logo { font-size: 22px; font-weight: 700; color: var(--white); margin-bottom: 8px; }
+.footer-logo span { color: var(--gold); }
+.footer-brand p { font-size: 13px; color: rgba(255,255,255,0.3); line-height: 1.6; max-width: 220px; }
+.footer-links h4 { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.25); margin-bottom: 16px; }
+.footer-links ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.footer-links a { font-size: 14px; color: rgba(255,255,255,0.5); text-decoration: none; }
+.footer-bottom { max-width: 1080px; margin: 48px auto 0; padding-top: 24px; border-top: 0.5px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+.footer-bottom p { font-size: 12px; color: rgba(255,255,255,0.22); }
+.footer-fiducia span { color: var(--gold); opacity: 0.6; }
+@media (max-width:960px) { nav { padding: 0 24px; } .nav-links { display: none; } .problem-grid { grid-template-columns: 1fr; } .flow { grid-template-columns: repeat(3,1fr); row-gap: 32px; } .compare-grid { grid-template-columns: 1fr; } .pricing-grid { grid-template-columns: repeat(2,1fr); } .testimonials { grid-template-columns: 1fr; } }
+@media (max-width:600px) { .hero-stats { flex-direction: column; } .pricing-grid { grid-template-columns: 1fr; } .verticals-grid { grid-template-columns: 1fr 1fr; } .flow { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<nav><div class="nav-logo">Voice<span>IQ</span> AI</div><ul class="nav-links"><li><a href="#how">How It Works</a></li><li><a href="#compare">vs. Human SDR</a></li><li><a href="#industries">Industries</a></li><li><a href="#pricing">Pricing</a></li></ul><a href="#demo" class="nav-cta">Book a Demo</a></nav>
+<section class="hero"><div class="hero-rings"><div class="ring"></div><div class="ring"></div><div class="ring"></div></div><div class="hero-eyebrow">AI Outbound Sales Calling</div><h1>Your AI Sales Team<br>Is <em>Already Dialing.</em></h1><p class="hero-sub">VoiceIQ AI deploys intelligent voice agents that make hundreds of outbound sales calls per day, pitch your offer, handle objections, and book qualified appointments directly into your calendar while you sleep.</p><div class="hero-actions"><a href="#demo" class="btn-primary">Hear a Live Demo Call</a><a href="#compare" class="btn-ghost">See vs. Human SDR</a></div><div class="hero-stats"><div class="hero-stat"><div class="hero-stat-num">400<span>+</span></div><div class="hero-stat-label">Dials Per Day</div></div><div class="hero-stat"><div class="hero-stat-num">24<span>/7</span></div><div class="hero-stat-label">Non-Stop Calling</div></div><div class="hero-stat"><div class="hero-stat-num">7<span>x</span></div><div class="hero-stat-label">Cheaper Than SDR</div></div><div class="hero-stat"><div class="hero-stat-num">5<span>d</span></div><div class="hero-stat-label">To Go Live</div></div></div></section>
+<section class="problem"><div class="container"><p class="section-eyebrow">The Problem</p><h2 class="section-title" style="max-width:600px;">Human SDRs can't keep up with demand.</h2><p class="section-sub">Hiring outbound sales reps is slow, expensive, and inconsistent.</p><div class="problem-grid"><div class="problem-card"><div class="problem-stat">$80K</div><h3>Average SDR Cost</h3><p>Fully loaded salary, benefits, and overhead before a single meeting is booked.</p></div><div class="problem-card"><div class="problem-stat">50</div><h3>Dials Per Day (Human)</h3><p>The average SDR makes 40-60 dials per day. Your AI agent makes 200-400. Every day.</p></div><div class="problem-card"><div class="problem-stat">14mo</div><h3>Average SDR Tenure</h3><p>High turnover means constant hiring and disruption. AI agents never quit.</p></div></div></div></section>
+<section class="how" id="how"><div class="container"><p class="section-eyebrow">How It Works</p><h2 class="section-title">Six steps from list to booked meeting.</h2><p class="section-sub">You provide the prospect list. We handle everything else.</p><div class="flow"><div class="flow-step"><div class="flow-num">1</div><h3>You Send the List</h3><p>Upload your prospect list.</p></div><div class="flow-step"><div class="flow-num">2</div><h3>We Write the Script</h3><p>Custom pitch for your vertical.</p></div><div class="flow-step"><div class="flow-num">3</div><h3>AI Starts Dialing</h3><p>200-400 calls/day, 24/7.</p></div><div class="flow-step"><div class="flow-num">4</div><h3>Handles Objections</h3><p>Real-time AI conversation.</p></div><div class="flow-step"><div class="flow-num">5</div><h3>Books the Appointment</h3><p>Directly into your calendar.</p></div><div class="flow-step"><div class="flow-num">6</div><h3>You Close the Deal</h3><p>Walk in with a warm prospect.</p></div></div></div></section>
+<section class="compare" id="compare"><div class="container"><p class="section-eyebrow">The Comparison</p><h2 class="section-title">VoiceIQ AI vs. a Human SDR</h2><p class="section-sub">Same goal. Radically different cost, speed, and output.</p><div class="compare-grid"><div class="compare-card bad"><p class="compare-label">Human SDR</p><h3 class="compare-title">$80K/year. 50 calls/day. Quits in 14 months.</h3><div class="compare-rows"><div class="compare-row"><div class="compare-icon">X</div><div class="compare-row-text"><strong>$6,500-$8,000/month fully loaded</strong>Salary, benefits, management, and training.</div></div><div class="compare-row"><div class="compare-icon">X</div><div class="compare-row-text"><strong>40-60 dials per day</strong>Performance degrades after rejection streaks.</div></div><div class="compare-row"><div class="compare-icon">X</div><div class="compare-row-text"><strong>3-6 month ramp period</strong>Months before fully productive.</div></div><div class="compare-row"><div class="compare-icon">X</div><div class="compare-row-text"><strong>9am-5pm, Monday-Friday only</strong>Calls when convenient for the rep.</div></div><div class="compare-row"><div class="compare-icon">X</div><div class="compare-row-text"><strong>Script drift and inconsistency</strong>Every rep delivers the pitch differently.</div></div></div></div><div class="compare-card good"><p class="compare-label">VoiceIQ AI</p><h3 class="compare-title">$1,097/month. 400 calls/day. Never quits.</h3><div class="compare-rows"><div class="compare-row"><div class="compare-icon">+</div><div class="compare-row-text"><strong>From $1,097/month</strong>One flat monthly fee. No benefits or HR overhead.</div></div><div class="compare-row"><div class="compare-icon">+</div><div class="compare-row-text"><strong>200-400 dials per day</strong>Consistent output every day regardless of mood.</div></div><div class="compare-row"><div class="compare-icon">+</div><div class="compare-row-text"><strong>Live in 5-7 business days</strong>From signed contract to first dial in under a week.</div></div><div class="compare-row"><div class="compare-icon">+</div><div class="compare-row-text"><strong>24/7 including weekends</strong>Call when prospects are most likely to pick up.</div></div><div class="compare-row"><div class="compare-icon">+</div><div class="compare-row-text"><strong>Pitch-perfect on every call</strong>Same quality on call #1 and call #40,000.</div></div></div></div></div></div></section>
+<section style="background:#0a0f1e;padding:100px 24px;"><div class="container" style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;"><div><p class="section-eyebrow">The Voice Experience</p><h2 style="font-size:clamp(34px,4.5vw,52px);font-weight:700;letter-spacing:-1.8px;line-height:1.08;color:#fff;margin-bottom:20px;">Does it sound like a <em style="font-style:normal;color:#c9a84c;">robot?</em></h2><p style="font-size:17px;color:rgba(255,255,255,0.5);line-height:1.7;margin-bottom:32px;">The answer is no - and that is the entire product. VoiceIQ AI agents are engineered for natural, human conversation. Dynamic pacing. Realistic pauses. Contextual responses. Proper intonation. Your prospects do not hear a robot reading a script. They hear a confident, articulate caller who understands their business.</p><a href="#demo" class="btn-primary" style="display:inline-block;">Hear It For Yourself</a></div><div style="display:flex;flex-direction:column;gap:16px;"><div style="background:rgba(255,255,255,0.04);border:0.5px solid rgba(201,168,76,0.2);border-radius:16px;padding:28px;"><p style="font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#c9a84c;margin-bottom:10px;">Natural Conversation</p><p style="font-size:14px;color:rgba(255,255,255,0.6);line-height:1.6;">Dynamic speech patterns with natural pauses, tone variation, and real-time contextual understanding.</p></div><div style="background:rgba(255,255,255,0.04);border:0.5px solid rgba(201,168,76,0.2);border-radius:16px;padding:28px;"><p style="font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#c9a84c;margin-bottom:10px;">Real-Time Objection Handling</p><p style="font-size:14px;color:rgba(255,255,255,0.6);line-height:1.6;">When a prospect says they are not interested, the agent responds naturally, not with an error message.</p></div><div style="background:rgba(255,255,255,0.04);border:0.5px solid rgba(201,168,76,0.2);border-radius:16px;padding:28px;"><p style="font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#c9a84c;margin-bottom:10px;">Sub-Second Response Time</p><p style="font-size:14px;color:rgba(255,255,255,0.6);line-height:1.6;">No awkward delays. Responses come back in under a second, keeping conversations flowing naturally.</p></div></div></div></section>
+<section class="verticals" id="industries"><div class="container"><p class="section-eyebrow">Industries We Serve</p><h2 class="section-title">Built for businesses that sell over the phone.</h2><p class="section-sub">Every vertical we serve has one thing in common: a booked appointment is worth far more than what we charge.</p><div class="verticals-grid"><div class="vertical-card"><span class="vertical-emoji">&#127968;</span><h3>Home Services</h3><p>Call homeowners for seasonal tune-ups, estimates, and maintenance plans.</p><span class="vertical-roi">$500-$5K per job</span></div><div class="vertical-card"><span class="vertical-emoji">&#9878;&#65039;</span><h3>Personal Injury Law</h3><p>Call accident leads, qualify cases, and book attorney consultations 24/7.</p><span class="vertical-roi">$10K-$100K+ per case</span></div><div class="vertical-card"><span class="vertical-emoji">&#128663;</span><h3>Auto Dealerships</h3><p>Work aged leads, service lists, and conquest databases to fill the showroom.</p><span class="vertical-roi">$2K-$15K per sale</span></div><div class="vertical-card"><span class="vertical-emoji">&#127969;</span><h3>Real Estate</h3><p>Call FSBOs, expired listings, and buyer leads to book consultations.</p><span class="vertical-roi">$5K-$25K per deal</span></div><div class="vertical-card"><span class="vertical-emoji">&#128134;</span><h3>Medspa and Clinics</h3><p>Reach past patients and new leads to book high-ticket treatment consultations.</p><span class="vertical-roi">$500-$5K per treatment</span></div></div></div></section>
+<section class="pricing" id="pricing"><div class="container"><p class="section-eyebrow">Pricing</p><h2 class="section-title">One booked appointment covers your entire month.</h2><p class="section-sub">Flat monthly pricing based on dial volume. No commissions, no per-call fees, no surprises.</p><div class="pricing-grid"><div class="pricing-card"><p class="pricing-tier">Starter</p><p class="pricing-price"><sup>$</sup>597</p><p class="pricing-cadence">per month</p><p class="pricing-volume">6,000 dials/mo - 1 agent</p><p class="pricing-setup">$500 one-time setup fee</p><ul class="pricing-features"><li>1 AI outbound calling agent</li><li>Custom call script</li><li>Calendar integration</li><li>Basic campaign dashboard</li><li>Email support</li></ul><a href="#demo" class="pricing-btn pricing-btn-outline">Get Started</a></div><div class="pricing-card featured"><div class="pricing-badge">Most Popular</div><p class="pricing-tier">Growth</p><p class="pricing-price"><sup>$</sup>1,097</p><p class="pricing-cadence">per month</p><p class="pricing-volume">15,000 dials/mo - 2 agents</p><p class="pricing-setup">$750 one-time setup fee</p><ul class="pricing-features"><li>2 AI outbound calling agents</li><li>Multi-branch script and objection handlers</li><li>CRM integration HubSpot and GHL</li><li>Standard analytics dashboard</li><li>Monthly script optimization</li><li>Email and chat support</li></ul><a href="#demo" class="pricing-btn pricing-btn-solid">Get Started</a></div><div class="pricing-card"><p class="pricing-tier">Pro</p><p class="pricing-price"><sup>$</sup>1,797</p><p class="pricing-cadence">per month</p><p class="pricing-volume">30,000 dials/mo - 4 agents</p><p class="pricing-setup">$1,000 one-time setup fee</p><ul class="pricing-features"><li>4 AI outbound calling agents</li><li>Full CRM integration stack</li><li>Advanced analytics and call recordings</li><li>Bi-weekly script optimization</li><li>Priority support</li></ul><a href="#demo" class="pricing-btn pricing-btn-outline">Get Started</a></div><div class="pricing-card"><p class="pricing-tier">Enterprise</p><p class="pricing-price" style="font-size:30px;padding-top:6px;">Custom</p><p class="pricing-cadence">contact us</p><p class="pricing-volume">Unlimited dials - Unlimited agents</p><p class="pricing-setup">Setup fee waived</p><ul class="pricing-features"><li>Unlimited AI calling agents</li><li>Multi-location and franchise support</li><li>Custom reporting and SLA</li><li>Weekly optimization</li><li>Dedicated account rep</li></ul><a href="#demo" class="pricing-btn pricing-btn-outline">Contact Us</a></div></div></div></section>
+<section class="social" id="results"><div class="container"><p class="section-eyebrow">Client Results</p><h2 class="section-title">Real dials. Real appointments.</h2><div class="testimonials"><div class="testimonial"><div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p>"VoiceIQ called our entire 2,000-person homeowner list in four days. We booked 38 estimates. Our old SDR would have taken two months."</p><div class="testimonial-author"><div class="testimonial-avatar">MR</div><div><div class="testimonial-name">Mike Rodriguez</div><div class="testimonial-title">Owner, Rodriguez HVAC - Phoenix, AZ</div></div></div></div><div class="testimonial"><div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p>"We were paying a call center $12,000 a month to work our PI leads. VoiceIQ does it at a fraction of the cost and books more qualified consults."</p><div class="testimonial-author"><div class="testimonial-avatar">JS</div><div><div class="testimonial-name">Jennifer Solis</div><div class="testimonial-title">Managing Partner, Solis Law Group - Dallas, TX</div></div></div></div><div class="testimonial"><div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p>"Our BDC was making 60 calls a day and booking 3 appointments. VoiceIQ makes 300 calls a day and books 20. It is not even a competition."</p><div class="testimonial-author"><div class="testimonial-avatar">DK</div><div><div class="testimonial-name">David Kim</div><div class="testimonial-title">GM, Pacific Auto Group - Los Angeles, CA</div></div></div></div></div></div></section>
+<section class="cta-banner" id="demo"><div class="container"><h2>Hear your AI sales agent<br><em>make a real call.</em></h2><p>Book a free 20-minute demo. We will run a live outbound call for your industry in real time.</p><div class="cta-form"><input class="cta-input" type="email" placeholder="your@email.com" /><button class="cta-submit">Book My Free Demo</button></div></div></section>
+<footer><div class="footer-inner"><div class="footer-brand"><div class="footer-logo">Voice<span>IQ</span> AI</div><p>Outbound AI sales calling and appointment booking for sales-driven businesses.</p></div><div class="footer-links"><h4>Product</h4><ul><li><a href="#how">How It Works</a></li><li><a href="#compare">vs. Human SDR</a></li><li><a href="#pricing">Pricing</a></li><li><a href="#demo">Book a Demo</a></li></ul></div><div class="footer-links"><h4>Industries</h4><ul><li><a href="#">Home Services</a></li><li><a href="#">Personal Injury Law</a></li><li><a href="#">Auto Dealerships</a></li><li><a href="#">Real Estate</a></li><li><a href="#">Medspa and Clinics</a></li></ul></div><div class="footer-links"><h4>Company</h4><ul><li><a href="#">About</a></li><li><a href="#">Contact</a></li><li><a href="#">Privacy Policy</a></li><li><a href="#">Terms of Service</a></li></ul></div></div><div class="footer-bottom"><p>2026 VoiceIQ AI. All rights reserved.</p><p class="footer-fiducia">A <span>Fiducia Capitalis</span> venture - www.fcinvest.group</p></div></footer>
+</body>
+</html>
